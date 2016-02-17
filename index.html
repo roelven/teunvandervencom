@@ -25,7 +25,7 @@
 			ol{list-style-position:inside;margin-top:3.5vh;font-size:3.4vw;line-height:1.3}
 			li,label{white-space: nowrap}
 
-			.button {
+			#button {
 				background-color: #000;
 				width: 30px;
 				height: 30px;
@@ -36,7 +36,7 @@
 				text-indent: -3000px;
 			}
 
-			.button:hover {
+			#button:hover {
 				background-color: #ccc;
 				cursor: pointer;
 				cursor: hand; 
@@ -55,7 +55,7 @@
     <body>
 
     	<header>
-    		<span class="button">Play</span>
+    		<span id="button">Play</span>
         	<h1>T<u>eu</u>n•van•der•Ven</h1>
         	<label>IPA /tøn vαn dεr væn/</label>
         </header>
@@ -72,9 +72,6 @@
 
     </body>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-        <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
-
         <script src="//connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
 		<script>
 		
@@ -82,10 +79,23 @@
 			  client_id: '00952fa8399754a3a92a70c8b1157a5e'
 			});
 
-			$('.button').click(function() {
-				SC.stream('/tracks/247045565').then(function(player){
-			  		player.play();
+
+			var currentPlayer,
+				streamSound = function(){
+				return SC.stream('/tracks/247045565').then(function(player){
+					// do things in UX
+					if (currentPlayer) {
+						currentPlayer.pause();
+					}
+					currentPlayer = player;
+					player.play();
+				}).catch(function(){
+					console.log(arguments);
 				});
+			};
+
+			document.getElementById('button').addEventListener('click', function(){
+				streamSound();
 			});
 
 		</script>
