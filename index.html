@@ -16,45 +16,44 @@
         <style>
         	html,body,div,h1,p,label,legend,ol,header{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}
         	a{margin:0;padding:0;font-size:100%;vertical-align:baseline;background:transparent;text-decoration:none;color:#000;-o-transition:.2s;-ms-transition:.2s;-moz-transition:.2s;-webkit-transition:.2s}
-			a:hover{color:rgb(0, 0, 238)}
-			body{height:auto;margin:20px;padding-left:10px;position:relative;font-family:Georgia;color:#000;margin-left:50px;}
-			header{margin-bottom:1.3vh;margin-top:8vh;position:relative}
-			h1{font-size:9.3vw;font-weight:normal;padding-bottom:1.5vh}
-			label{font-size:4.8vw}
-			legend{font-size:4.8vw;padding-top:14px;font-style:italic}
-			ol{list-style-position:inside;margin-top:3.5vh;font-size:3.1vw;line-height:1.3}
-			li,label{white-space: nowrap}
+					a:hover{color:rgb(0, 0, 238)}
+					body{height:auto;margin:20px;padding-left:10px;position:relative;font-family:Georgia;color:#000;margin-left:50px;}
+					header{margin-bottom:1.3vh;margin-top:8vh;position:relative}
+					h1{font-size:9.3vw;font-weight:normal;padding-bottom:1.5vh}
+					label{font-size:4.8vw}
+					legend{font-size:4.8vw;padding-top:14px;font-style:italic}
+					ol{list-style-position:inside;margin-top:3.5vh;font-size:3.1vw;line-height:1.3}
+					li,label{white-space: nowrap}
 
-			#button {
-				background-color: #000;
-				width: 30px;
-				height: 30px;
-				position: absolute;
-				display: block;
-				margin-left: -50px;
-				margin-top: 20px;
-				text-indent: -3000px;
-			}
+					#tpl_button {
+						display: none;
+					}
 
-			#button:hover {
-				background-color: #ccc;
-				cursor: pointer;
-				cursor: hand; 
-			}
-			.message {
-				background-color: #ccc;
-				width: 100px;
-				height: 100px;
-				float: left;
-			}
+					#button {
+						width: 35px;
+						height: 35px;
+						position: absolute;
+						display: block;
+						margin-left: -50px;
+						margin-top: 16px;
+					}
 
-			@media (min-width: 725px) {
-				body{max-width:700px;margin:auto;right:-75px}
-				header{margin-bottom:20px;margin-top:70px}
-				h1{font-size:56px;padding-bottom:10px}
-				label,legend{font-size:29px}
-				ol{margin-top:30px;font-size:20px}
-			}
+					#button:hover {
+						cursor: pointer;
+						cursor: hand; 
+					}
+
+					#button:hover #speaker {
+						fill: rgb(0, 0, 238);
+					}
+
+					@media (min-width: 725px) {
+						body{max-width:700px;margin:auto;right:-75px}
+						header{margin-bottom:20px;margin-top:70px}
+						h1{font-size:56px;padding-bottom:10px}
+						label,legend{font-size:29px}
+						ol{margin-top:30px;font-size:20px}
+					}
 
         </style>
     </head>
@@ -71,11 +70,18 @@
       </legend>
 
       <ol>
-      	<li>“de onschatbare” (”the inestimable”, “die Unschätzbare”)</li>
+      	<li>“the inestimable” (”de onschatbare”, “die Unschätzbare”)</li>
       	<li>our little man</li>
       	<li>son of <a href="https://instagram.com/noortjeo/">Noortje</a> and <a href="https://twitter.com/roelven">Roel</a></li>
       </ol>
 
+			<span id="tpl_button">
+				<svg id="speaker" xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="-228 321 150 150" preserveAspectRatio="xMidYMid slice">
+					<path class="cone" d="M-141.1 321c-2.7-1.2-5.8-.8-8 1.1l-47.7 41h-21.8c-4.1 0-7.5 3.4-7.5 7.5v53.1c0 4.1 3.4 7.5 7.5 7.5h21.8l47.7 41c1.4 1.2 3.1 1.8 4.9 1.8 1.1 0 2.1-.2 3.1-.7 2.7-1.2 4.4-3.9 4.4-6.8V327.8c0-2.9-1.7-5.6-4.4-6.8zm-60.4 95.2h-9.6v-38.1h9.6v38.1zm49.8 34l-34.8-29.9V374l34.8-29.9v106.1z"/>
+				  <path class="soundwave_1" d="M-117.7 372.1c-2.9-2.9-7.7-2.9-10.6 0-2.9 2.9-2.9 7.7 0 10.6 8 8 8 21 0 28.9-2.9 2.9-2.9 7.7 0 10.6 1.5 1.5 3.4 2.2 5.3 2.2s3.8-.7 5.3-2.2c13.8-13.8 13.8-36.3 0-50.1z"/>
+				  <path class="soundwave_2" d="M-95.7 350.1c-2.9-2.9-7.7-2.9-10.6 0s-2.9 7.7 0 10.6c20.1 20.1 20.1 52.8 0 72.9-2.9 2.9-2.9 7.7 0 10.6 1.5 1.5 3.4 2.2 5.3 2.2s3.8-.7 5.3-2.2c25.9-25.9 25.9-68.1 0-94.1z"/>
+				</svg>
+			</span>
     </body>
 
 		<script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
@@ -85,10 +91,17 @@
 		<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
         
 		<script>
+		  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+		  ga('create', 'UA-1750722-12', 'auto');
+		  ga('send', 'pageview');
+
 			$.fn.ready(function() {
 				FastClick.attach(document.body);
 
-				// Declare main vars
 				var doc = document,
 				  	win = window,
 				  	clientid = '00952fa8399754a3a92a70c8b1157a5e';
@@ -96,6 +109,7 @@
 				var player = {
 							callbacks: {
 							  play: function(audio) {
+							  	ga('send', 'event', 'Player', 'played', '');
 							    $('#button')
 							      .removeClass('stopped')
 							      .removeClass('buffering')
@@ -109,7 +123,7 @@
 							  }
 							},
 					    render: function(audio) {
-					      return '<span id="button">Play</span>';
+					    	return $('#tpl_button').clone().prop('id', 'button');
 					    },
 							data: {}
 						};
@@ -129,6 +143,8 @@
 			    $('header').prepend(player.render(audio));
 			  });
 			})
+
+
 		</script>
 
 
