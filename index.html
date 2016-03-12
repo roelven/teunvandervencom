@@ -17,12 +17,12 @@
         	html,body,div,h1,p,label,legend,ol,header{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}
         	a{margin:0;padding:0;font-size:100%;vertical-align:baseline;background:transparent;text-decoration:none;color:#000;-o-transition:.2s;-ms-transition:.2s;-moz-transition:.2s;-webkit-transition:.2s}
 			a:hover{color:rgb(0, 0, 238)}
-			body{height:auto;margin:20px;padding-left:10px;position:relative;font-family:Georgia;color:#000}
+			body{height:auto;margin:20px;padding-left:10px;position:relative;font-family:Georgia;color:#000;margin-left:50px;}
 			header{margin-bottom:1.3vh;margin-top:8vh;position:relative}
 			h1{font-size:9.3vw;font-weight:normal;padding-bottom:1.5vh}
 			label{font-size:4.8vw}
 			legend{font-size:4.8vw;padding-top:14px;font-style:italic}
-			ol{list-style-position:inside;margin-top:3.5vh;font-size:3.4vw;line-height:1.3}
+			ol{list-style-position:inside;margin-top:3.5vh;font-size:3.1vw;line-height:1.3}
 			li,label{white-space: nowrap}
 
 			#button {
@@ -41,6 +41,12 @@
 				cursor: pointer;
 				cursor: hand; 
 			}
+			.message {
+				background-color: #ccc;
+				width: 100px;
+				height: 100px;
+				float: left;
+			}
 
 			@media (min-width: 725px) {
 				body{max-width:700px;margin:auto;right:-75px}
@@ -49,55 +55,80 @@
 				label,legend{font-size:29px}
 				ol{margin-top:30px;font-size:20px}
 			}
+
         </style>
     </head>
 
     <body>
 
     	<header>
-    		<span id="button">Play</span>
-        	<h1>T<u>eu</u>n•van•der•Ven</h1>
-        	<label>IPA /tøn vαn dεr væn/</label>
-        </header>
+      	<h1>T<u>eu</u>n•van•der•Ven</h1>
+      	<label>IPA /tøn vαn dεr væn/</label>
+      </header>
 
-        <legend>
-        	name
-        </legend>
+      <legend>
+      	name
+      </legend>
 
-        <ol>
-        	<li>“de onschatbare” (”the inestimable”, “die unschätzbare”)</li>
-        	<li>onze kleine man</li>
-        	<li>zoon van <a href="https://instagram.com/noortjeo/">Noortje</a> en <a href="https://twitter.com/roelven">Roel</a></li>
-        </ol>
+      <ol>
+      	<li>“de onschatbare” (”the inestimable”, “die Unschätzbare”)</li>
+      	<li>our little man</li>
+      	<li>son of <a href="https://instagram.com/noortjeo/">Noortje</a> and <a href="https://twitter.com/roelven">Roel</a></li>
+      </ol>
 
     </body>
 
-        <script src="//connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+    <script src="//connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
+
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"><\/script>')</script>
+        
 		<script>
-		
-			SC.initialize({
-			  client_id: '00952fa8399754a3a92a70c8b1157a5e'
-			});
+			$.fn.ready(function() {
+				FastClick.attach(document.body);
 
+				// Declare main vars
+				var doc = document,
+				  	win = window,
+				  	clientid = '00952fa8399754a3a92a70c8b1157a5e';
 
-			var currentPlayer,
-				streamSound = function(){
-				return SC.stream('/tracks/247045565').then(function(player){
-					// do things in UX
-					if (currentPlayer) {
-						currentPlayer.pause();
-					}
-					currentPlayer = player;
-					player.play();
-				}).catch(function(){
-					console.log(arguments);
-				});
-			};
+				var player = {
+							callbacks: {
+							  play: function(audio) {
+							    $('#button')
+							      .removeClass('stopped')
+							      .removeClass('buffering')
+							      .addClass('playing');
+							  },
+							  ended: function(audio) {
+							    $('#button')
+							      .removeClass('playing')
+							      .removeClass('buffering')
+							      .addClass('stopped');
+							  }
+							},
+					    render: function(audio) {
+					      return '<span id="button">Play</span>';
+					    },
+							data: {}
+						};
 
-			document.getElementById('button').addEventListener('click', function(){
-				streamSound();
-			});
+				  $('header').on('click', '#button', function(e) {
+				    e.preventDefault();
+				    player.audio.play();
+				  });
 
+				$.getJSON('http://api.soundcloud.com/tracks/247045565.json?client_id=' + clientid, function(data) {
+			      var audio = new Audio();
+			      audio.addEventListener('play', player.callbacks.play.bind(null, data), false);
+			      audio.addEventListener('ended', player.callbacks.ended.bind(null, data), false);
+			      audio.src = data.stream_url + '?client_id=' + clientid;
+			      player.audio = audio;
+			    
+			    $('header').prepend(player.render(audio));
+			  });
+			})
 		</script>
 
 
