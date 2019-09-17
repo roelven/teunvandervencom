@@ -119,7 +119,7 @@
 				    player.audio.play();
 				  });
 
-				$.getJSON('http://api.soundcloud.com/tracks/247045565.json?client_id=' + clientid, function(data) {
+				$.getJSON('//api.soundcloud.com/tracks/247045565.json?client_id=' + clientid, function(data) {
 			      var audio = new Audio();
 			      audio.addEventListener('play', player.callbacks.play.bind(null, data), false);
 			      audio.addEventListener('ended', player.callbacks.ended.bind(null, data), false);
